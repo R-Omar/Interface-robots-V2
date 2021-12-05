@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-ng lint && pretty-quick --staged
+ng lint && npx pretty-quick --staged
