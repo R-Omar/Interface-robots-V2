@@ -1,0 +1,89 @@
+<div class="card h-100 border-secondary">
+  <div class="card-header text-white bg-dark">
+    <h5 class="m-0 d-flex align-items-center">
+      <span class="dot" [ngClass]="getStatusColor()"></span>
+      <span class="ms-2">Robot {{ robot.id }} - {{ robot.nom }}</span>
+    </h5>
+  </div>
+  <div class="card-body">
+    <div class="col-auto">
+      <label class="col-form-label fw-bold">Statut :</label>
+      <span class="ms-2">{{ robot.statut }}</span>
+    </div>
+
+    <div class="col-auto" *ngIf="!sideCard">
+      <label class="col-form-label fw-bold">Adresse IP :</label>
+      <span> {{ robot.adresse_ip }}</span>
+    </div>
+
+    <ng-container
+      *ngIf="robot.statut === 'En marche' || robot.statut === 'En pause'"
+    >
+      <div class="col-auto" *ngIf="!sideCard">
+        <label class="col-form-label fw-bold">Programme exécuté :</label>
+        <span> {{ robot.programme_execute }}</span>
+        <button
+          *ngIf="robot.statut === 'En marche'"
+          type="button"
+          class="btn btn-warning btn-sm ms-3"
+          (click)="onUpdateRobotStatus(robot.id, 'En pause')"
+        >
+          Mettre en pause
+        </button>
+        <button
+          *ngIf="robot.statut === 'En pause'"
+          type="button"
+          class="btn btn-success btn-sm ms-3"
+          (click)="onUpdateRobotStatus(robot.id, 'En marche')"
+        >
+          Reprendre l'exécution
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm ms-2"
+          (click)="onUpdateRobotStatus(robot.id, 'En arrêt')"
+        >
+          Arrêter
+        </button>
+      </div>
+      <div *ngFor="let KPI of robot.KPIs" class="col-auto">
+        <label class="col-form-label fw-bold">{{ KPI.label }} :</label>
+        <span> {{ KPI.valeur }}</span>
+      </div>
+    </ng-container>
+
+    <div class="row g-3 align-items-center" *ngIf="!sideCard">
+      <div class="col-auto">
+        <label for="programmme" class="col-form-label fw-bold"
+          >Lancer le programme :</label
+        >
+      </div>
+      <div class="col-auto">
+        <select
+          type="text"
+          id="programmme"
+          class="form-select form-select-sm"
+          (change)="onChangeProgram($event)"
+        >
+          <option value="">choisir...</option>
+          <option
+            *ngFor="let programme of robot.programmes"
+            value="{{ programme }}"
+          >
+            {{ programme }}
+          </option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          (click)="onStartProgram(robot.id)"
+          [disabled]="disableExecPro"
+        >
+          Lancer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

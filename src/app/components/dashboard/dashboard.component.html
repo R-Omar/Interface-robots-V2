@@ -1,0 +1,17 @@
+<div class="container-fluid d-flex flex-column vh-100 p-3">
+  <div class="row h-100 overflow-hidden">
+    <div class="col">
+      <app-robot-card [robot]="getMainRobot()"></app-robot-card>
+    </div>
+    <div class="col-3 mh-100 overflow-auto">
+      <div *ngFor="let robot of getSideRobotsList()" class="mb-3">
+        <app-robot-card
+          role="button"
+          [robot]="robot"
+          [sideCard]="true"
+          [routerLink]="['/robot', robot.id]"
+        ></app-robot-card>
+      </div>
+    </div>
+  </div>
+</div>
