@@ -40,6 +40,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getSideRobotsList(): IRobot[] {
-    return this.robots.filter((robot) => robot.id !== this.getMainRobot().id);
+    return this.robots.filter(
+      (robot) => robot.id !== (this.mainRobot as IRobot).id
+    );
   }
 }
