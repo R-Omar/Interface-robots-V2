@@ -1,0 +1,22 @@
+@media (min-width: 810px) {
+  .left-column {
+    min-width: 350px;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 810px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .left-column {
+    display: flex;
+    flex-direction: row;
+  }
+  .side-card {
+    min-width: 270px;
+    min-width: 270px;
+    padding-right: 10px;
+  }
+}
